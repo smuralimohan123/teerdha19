@@ -1,0 +1,126 @@
+{% extends 'dashboard_templates/admin.html' %}
+{% block main_content %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <style>
+            /* Global styles for both light and dark modes */
+            body {
+                background-color: #ffffff;
+                color: #333333;
+            }
+
+            table {
+                width: 950px;
+                border-collapse: collapse;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                background: #fff;
+                border-radius: 10px;
+                margin: 0 auto;
+                margin-left: 300px;
+                margin-top: 20px;
+                height: 300px;
+            }
+
+            th, td {
+                padding: 15px;
+                text-align: center;
+                border-bottom: 1px solid #ddd;
+                border-right: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #3498db;
+                color: white;
+                font-weight: bold;
+            }
+
+            td {
+                background-color: #f9f9f9;
+                color: #333;
+            }
+
+            tr:last-child td {
+                border-bottom: none;
+            }
+
+            .sr {
+                padding-left: 300px;
+            }
+
+            td a.url {
+                text-decoration: none;
+                color: #3498db; /* Default link color */
+            }
+
+            /* Styles for dark mode */
+            body.dark {
+                background-color: #2d2d2d;
+                color: #ffffff;
+            }
+
+            body.dark table {
+                background-color: #2d2d2d;
+                color: #ffffff;
+            }
+
+            body.dark th {
+                background-color: #1e272e;
+                color: #ffffff;
+            }
+
+            body.dark td {
+                background-color: #2d2d2d;
+                color: #ffffff;
+            }
+
+            body.dark td a.url {
+                color: #ffffff; /* Link color in dark mode */
+            }
+            
+        /* Button style */
+        .hk {
+            width: 200px;
+            height: 50px;
+            border-radius: 5px;
+            margin-left: 1050px;
+            background-color: #3498db; /* Default background color */
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        /* Change background color in dark mode */
+        body.dark .hk {
+            background-color: #3a3737; /* Black background color in dark mode */
+        }
+        </style>
+    </head>
+    <body>
+        <br>
+        <h2 class="sr">Flight 2nd Pages:</h2><br><br>
+
+        <a href="/flight2ndpage_insertform/" class="hk">New-OFFER-INSERT-FORM</a>
+        
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>OFFER</th>
+                <th>Insert URL</th>
+                <th>Update URL</th>
+            </tr>
+            {% for i in upt %}
+            <tr>
+                <td>{{ i.id }}</td>
+                <td>{{ i.offer }}</td>
+                <td><a href="{{ i.inserturl }}" class="url">Terms&Policy Insert</a></td>
+                <td><a href="{{ i.updateurl }}" class="url">Terms&Policy Update</a></td>
+            </tr>
+            {% endfor %}
+        </table><br>
+    </body>
+    </html>
+{% endblock main_content %}

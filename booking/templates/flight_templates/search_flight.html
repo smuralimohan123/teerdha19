@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Search</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    .swe{
+      background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+     padding: 20px 0;
+     width: 90%;
+     height: 100%;
+    /* background-image: url(https://media.istockphoto.com/id/992889264/photo/passenger-airplane-taking-off-at-sunrise.jpg?s=612x612&w=0&k=20&c=81oEPwWSm0cCgTzTJToxmS1tlr9TDI4o4PqjXGuieU8=); */
+    background-image: url(https://hdqwalls.com/download/plane-taking-off-3840x2400.jpg);
+  margin-left: 80px;
+  }
+    
+    
+    .flight-search-form {
+      max-width: 1050px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid rgba(119, 105, 105, 0.6);
+      border-radius: 10px;  
+      box-shadow: 0px 0px 20px rgba(236, 223, 223, 0.6);
+      background-color: rgba(119, 105, 105, 0.6);
+      /* opacity: 45%; */
+        transition: all .5s;
+    }
+    .flight-search-form:hover{
+        box-shadow: 5px 5px 20px rgba(236, 223, 223, 0.6);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      font-weight: bold;
+      color: #333;
+      font-size: 18px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    .btn-primary {
+        background-color: #0310868a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .btn-primary:hover {
+      background-color: #0057b3c0;
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    input[type="radio"] + label {
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    input[type="radio"]:checked + label {
+        background-color: #0310868a;
+      color: #fff;
+    }
+    .swap-icon {
+      cursor: pointer;
+      font-size: 20px;
+      /* margin: 0 5px; */
+    }
+    .rotate {
+      transition: transform 0.3s ease;
+    }
+    .rotate.rotate-180 {
+      transform: rotate(180deg);
+    }
+    .input-group-text {
+      padding: 5px;
+      border-radius: 0 8px 8px 0;
+    }
+    /* Additional styles for benefits */
+    .benefits-container {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center; /* Align items to the left */
+      flex-wrap: wrap;
+      gap: 20px;
+      
+    }
+    .benefit-section {
+      flex-basis: 70%; /* Full width for benefit section */
+      margin-bottom: 20px;
+    }
+    .benefit-item {
+      width: 200px; /* Adjust width as needed */
+      border: 1px solid black;
+      border-radius: 10px;
+      padding: 10px;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+     background-color: #ffffff;
+    }
+   
+    .benefit-item label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .benefit-item img {
+      /* margin-right: 10px; */
+      width: 30px;
+      height: 30px;
+    }
+    .benefit-item span {
+      flex: 1;
+    }
+    .benefit-description {
+      font-size: 14px;
+      color: #666;
+      margin-top: 5px;
+    }
+
+    /* Updated styles */
+    .benefits-title {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+
+    /* Adjustments for smaller screens */
+    @media (max-width: 768px) {
+      .benefit-item {
+        width: calc(50% - 20px); /* Two items per row on smaller screens */
+      }
+    }
+
+
+    @media (max-width: 992px) {
+    .form-group {
+      margin-bottom: 10px; /* Reduce margin between form groups */
+    }
+
+    .benefit-item {
+      width: calc(50% - 20px); /* Two items per row on smaller screens */
+    }
+  }
+
+  /* Media query for mobile phones */
+  @media (max-width: 576px) {
+    .form-group {
+      margin-bottom: 5px; /* Further reduce margin between form groups */
+    }
+
+    .form-group.col-md-2 {
+      flex-basis: 100%; /* Make each form group full width on mobile */
+    }
+
+    /* Adjust input and label styling for better spacing and alignment */
+    label {
+      display: none; /* Hide labels on smaller screens */
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    select {
+      margin-bottom: 10px; /* Add space between inputs */
+    }
+
+    /* Swap icon position */
+    .swap-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      
+    }
+  }
+  @media (max-width: 768px) {
+      .benefit-item {
+        width: calc(50% - 20px);
+      }
+  .benefits-container {
+    flex-wrap: nowrap; 
+    overflow-x: auto;
+    padding-bottom: 10px; 
+  }
+  .benefit-item {
+    flex: 0 0 auto; 
+    width: auto;
+    min-width: 200px;
+    margin-right: 10px;
+  }
+  .benefits-title {
+    margin-bottom: 10px;
+  }
+
+  .highlighted-title {
+    margin-top: 20px;
+  }
+      .form-row {
+        flex-direction: column;
+      }
+      .form-group {
+        width: 100%;
+      }
+      .swap-icon {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      #swap{
+        margin-left: -73px;
+        
+      }
+      .hide {
+        display: none;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+    #toLocation{
+        margin-top:-53px;
+        margin-bottom: 20px;
+      }
+      #departureDate{
+        margin-top: -14px;
+        margin-bottom: 0px;
+      }
+      .swap-icon {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+  }
+    }
+    @media (max-width: 576px) {
+      .form-group.col-md-2 {
+        width: 100%;
+      }
+
+    }
+
+.studentBenefit{
+      margin-right: 20px;
+    }
+    
+ 
+  </style>
+</head>
+<body>
+  <div class="swe">
+  <div class="flight-search-form">
+    <input type="radio" id="oneWay" name="tripType" value="oneWay" checked>
+    <label for="oneWay">One Way</label>
+    <input type="radio" id="roundTrip" name="tripType" value="roundTrip">
+    <label for="roundTrip">Round Trip</label>
+    <br>
+  
+    <form id="flightForm">
+      <div class="form-row">
+        <div class="form-group col-md-2 ">
+          <label for="fromLocation">From</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="fromLocation" placeholder="From">&nbsp;&nbsp;
+            <div class="input-group-append">
+              <span class="input-group-text swap-icon" onclick="swapLocations()">
+                <i class="fas fa-exchange-alt"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-2 ">
+          <label for="toLocation">To</label>
+          <input type="text" class="form-control" id="toLocation" placeholder="&nbsp;&nbsp;To">
+        </div>
+        <div class="form-group col-md-2 ">
+          <label for="departureDate">Departure Date</label>
+          <input type="date" class="form-control" id="departureDate" min="{{today}}">
+        </div>
+        <div class="form-group col-md-2" id="returnDateGroup">
+          <label for="returnDate">Return Date</label>
+          <input type="date" class="form-control" id="returnDate"  min="{{today}}" disabled>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="passengers">Passengers</label>
+          <input type="number" class="form-control" id="passengers" min="0" value="0">
+        </div>
+        <div class="form-group col-md-2">
+          <label for="class">Class</label>
+          <select class="form-control" id="class">
+            <option value="Select">Cabin type</option>
+            <option value="economy">Economy</option>
+            <option value="business">Business</option>
+            <option value="first">First Class</option>
+          </select>
+        </div>
+      </div>
+    </form>
+
+    <div class="benefit-section">
+        <div class="benefits-title">
+          <!-- <div class="highlighted-title">More Benefits</div> -->
+        </div>
+        <div class="benefits-container">
+          <!-- <div class="highlighted-title mt-4">More Benefits</div> -->
+          <div class="benefit-item" onclick="toggleCheckbox('studentBenefit')">
+            <label>
+              <input type="checkbox" id="studentBenefit" name="benefits">
+              <span>
+                <img src="https://th.bing.com/th?id=OIP.-W_ZAKPD_AG7aV_FvzS7_gHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2" alt="Student">
+                Students
+              </span>
+            </label>
+            <!-- <p class="benefit-description">Extra Baggage, Exclusive Discounts</p> -->
+          </div>
+          <div class="benefit-item" onclick="toggleCheckbox('seniorBenefit')">
+            <label>
+              <input type="checkbox" id="seniorBenefit" name="benefits">
+              <span>
+                <img src="https://th.bing.com/th/id/OIP.xv95FxE9n_7dHPeUrT4v5wHaIy?w=158&h=188&c=7&r=0&o=5&pid=1.7" alt="Senior Citizen">
+                Senior Citizen
+              </span>
+            </label>
+            <!-- <p class="benefit-description">Exclusive Discounts</p> -->
+          </div>
+          <div class="benefit-item" onclick="toggleCheckbox('armedForcesBenefit')">
+            <label>
+              <input type="checkbox" id="armedForcesBenefit" name="benefits">
+              <span>
+                <img src="https://gos3.ibcdn.com/defence-1687500960.png" alt="Armed Forces">
+                Armed Forces
+              </span>
+            </label>
+            <!-- <p class="benefit-description">Exclusive Discounts</p> -->
+          </div>
+          <div class="benefit-item" onclick="toggleCheckbox('doctorsBenefit')">
+            <label>
+              <input type="checkbox" id="doctorsBenefit" name="benefits">
+              <span>
+                <img src="https://gos3.ibcdn.com/doctorNurses-1687500975.png" alt="Doctors & Nurses">
+                Doctors & Nurses
+              </span>
+            </label>
+            <!-- <p class="benefit-description">Exclusive Discounts</p> -->
+          </div>
+        </div>
+      </div>
+      
+      <script>
+        function toggleCheckbox(id) {
+          const checkbox = document.getElementById(id);
+          if (checkbox) {
+            const checkboxes = document.querySelectorAll('.benefit-item input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+              if (cb.id !== id) {
+                cb.checked = false;
+              }
+            });
+            checkbox.checked = !checkbox.checked;
+          }
+        }
+      </script>
+      
+    <!-- Button -->
+    <center><button type="submit" class="btn btn-primary">Search Flights</button></center>
+  </div>
+
+  <script>
+    // JavaScript to restrict past dates for departure and set min for retuen accordingly
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get today's date in YYYY-MM-DD format
+      var today = new Date().toISOString().split('T')[0];
+      document.getElementById('departureDate').setAttribute('min', today);
+      document.getElementById('returnDate').setAttribute('min', today);
+  
+      // Add event listener to Check-In date input
+      document.getElementById('departureDate').addEventListener('change', function() {
+        var checkinDate = this.value;
+        document.getElementById('returnDate').setAttribute('min', checkinDate);
+      });
+    });
+  </script>
+  
+  
+
+</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+  <script>
+    // Ensure only one checkbox can be selected at a time
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        checkboxes.forEach(cb => {
+          if (cb !== checkbox) {
+            cb.checked = false;
+          }
+        });
+      });
+    });
+
+    document.getElementById('oneWay').addEventListener('change', function() {
+      document.getElementById('returnDate').disabled = true;
+      document.getElementById('returnDate').value = '';
+    });
+    document.getElementById('roundTrip').addEventListener('change', function() {
+      document.getElementById('returnDate').disabled = false;
+    });
+    
+    function swapLocations() {
+      var from = document.getElementById('fromLocation').value;
+      var to = document.getElementById('toLocation').value;
+      document.getElementById('fromLocation').value = to;
+      document.getElementById('toLocation').value = from;
+      document.querySelector('.swap-icon').classList.toggle('rotate-180');
+    }
+  </script>
+</body>
+
+</html>
