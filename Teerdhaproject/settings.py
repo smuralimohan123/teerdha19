@@ -85,7 +85,7 @@ DATABASES = {
         'NAME':'teerdha20',
         'POST':'3306',
         'PASSWORD':'murali12345',
-        'HOST':'localhost',
+        'HOST':'my-rds-instance.cjo2ke4q2za3.us-east-1.rds.amazonaws.com',
         'USER':'admin123'
     }
 }
