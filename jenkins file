@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+          AWS_ACCESS_KEY_ID       = credentials('aws-cred')
+          AWS_SECRET_ACCESS_KEY   = credentials('aws-cred')
+}
 stages {
 stage('aws cred'){
 steps{
@@ -10,43 +14,13 @@ steps{
 }
         stage('Deploy to Dev') {
             steps {
-                script {
-                    dir('terraform') {
-                        sh 'terraform workspace select dev || terraform workspace new dev'
-                        sh 'terraform init'
-                        sh 'terraform apply -auto-approve'
+                 sh '''
+                 terraform init
+                 terraform plan -out=dev.tfplan
+                 terraform apply dev.tfplan
                     }
                 }
             }
-        }
-        stage('Deploy to Test') {
-            when {
-                branch 'main'
-            }
-            steps {
-                script {
-                    dir('terraform') {
-                        sh 'terraform workspace select test || terraform workspace new test'
-                        sh 'terraform init'
-                        sh 'terraform apply -auto-approve'
-                    }
-                }
-            }
-        }
-        stage('Deploy to Prod') {
-            when {
-                branch 'main'
-            }
-            steps {
-                input "Deploy to production?"
-                script {
-                    dir('terraform') {
-                        sh 'terraform workspace select prod || terraform workspace new prod'
-                        sh 'terraform init'
-                        sh 'terraform apply -auto-approve'
-                    }
-                }
-            }
-        }
-    }
+        
+       
     
