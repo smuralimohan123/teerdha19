@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+stages {
+stage('aws cred'){
+steps{
+
+
+  }
+ }   
+}
+        stage('Deploy to Dev') {
+            steps {
+                script {
+                    dir('terraform') {
+                        sh 'terraform workspace select dev || terraform workspace new dev'
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
+                    }
+                }
+            }
+        }
+        stage('Deploy to Test') {
+            when {
+                branch 'main'
+            }
+            steps {
+                script {
+                    dir('terraform') {
+                        sh 'terraform workspace select test || terraform workspace new test'
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
+                    }
+                }
+            }
+        }
+        stage('Deploy to Prod') {
+            when {
+                branch 'main'
+            }
+            steps {
+                input "Deploy to production?"
+                script {
+                    dir('terraform') {
+                        sh 'terraform workspace select prod || terraform workspace new prod'
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
+                    }
+                }
+            }
+        }
+    }
+    
