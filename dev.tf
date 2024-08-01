@@ -1,6 +1,5 @@
 provider "aws" {
-  alias = "dev"
-  region = "us-east-2"
+  region = "us-east-1"
 }
 
 resource "aws_security_group" "dev_sg" {
@@ -44,7 +43,6 @@ resource "aws_security_group" "dev_sg" {
 }
 
 resource "aws_instance" "murali" {
-  alias = "dev"
   ami = "ami-04a81a99f5ec58529"
   instance_type = "t2.medium"
   key_name = "murali"
