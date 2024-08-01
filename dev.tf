@@ -2,7 +2,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_security_group" "dev_sg" {
+resource "aws_security_group" "rds_sg" {
   name = "rds_sg"
  
   ingress {
@@ -73,9 +73,9 @@ provisioner "remote-exec" {
         "pip install wheel",
         "pip install pillow",
         "pip install easy-pil",
-        "python /home/ubuntu/teerdha20/manage.py makemgrations",
-        "python /home/ubuntu/teerdha20/manage.py migrate",
-        "python /home/ubuntu/teerdha20/manage.py runserver 0.0.0.0:8000"     
+        "python /home/ubuntu/teerdha19/manage.py makemgrations",
+        "python /home/ubuntu/teerdha19/manage.py migrate",
+        "python /home/ubuntu/teerdha19/manage.py runserver 0.0.0.0:8000"     
     ]
     connection {
       type     = "ssh"
