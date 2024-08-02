@@ -66,6 +66,7 @@ provisioner "remote-exec" {
         "sudo apt install pkg-config -y",
         "pip install -r requirements.txt",
         "pip install django",
+        "pip install mysqlclient",
         "pip install django-crsipy-forms",
         "pip install django-rest-framework",
         "pip install requests",
